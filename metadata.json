@@ -1,0 +1,6 @@
+{
+  "name": "Fate Core Game Master Suite",
+  "description": "d20 ve Fate zar motoru, özel kartlar ve odaklama denetimi, karakter zaman çizelgesi, zafer/öldürülenler hafıza kütüphanesi, detaylı bölge ve dünya yöneticisi içeren Fate Core Game Master asistanı.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,67 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isGM() {
+      return isAuthenticated() && (
+        request.auth.token.email == 'ibrahim.metin.data@gmail.com' ||
+        (exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'gm')
+      );
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Users collection
+    match /users/{userId} {
+      allow read: if isAuthenticated();
+      allow create, update: if isOwner(userId) || isGM();
+      allow delete: if isGM();
+    }
+
+    // Characters collection
+    match /characters/{characterId} {
+      allow read: if isAuthenticated();
+      allow create, update: if isAuthenticated();
+      allow delete: if isGM() || (isAuthenticated() && resource.data.userId == request.auth.uid);
+    }
+
+    // Special Cards collection
+    match /specialCards/{cardId} {
+      allow read: if isAuthenticated();
+      allow create, update: if isAuthenticated();
+      allow delete: if isGM() || isAuthenticated();
+    }
+
+    // NPCs collection
+    match /npcs/{npcId} {
+      allow read: if isAuthenticated();
+      allow write: if isGM() || isAuthenticated();
+    }
+
+    // GM Secret Notes: Strictly GM Only!
+    match /gmNotes/{noteId} {
+      allow read, write: if isGM();
+    }
+
+    // Campaign Global State
+    match /campaigns/{campaignId} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated();
+    }
+
+    // Real-time Shared Dice Rolls
+    match /diceRolls/{rollId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated();
+      allow update, delete: if isGM() || (isAuthenticated() && resource.data.userId == request.auth.uid);
+    }
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "entities": {
+    "User": {
+      "collection": "users",
+      "fields": {
+        "email": { "type": "string", "description": "User email address" },
+        "displayName": { "type": "string", "description": "User display name" },
+        "photoURL": { "type": "string", "description": "Avatar photo URL" },
+        "role": { "type": "string", "description": "'gm' for Game Master, 'player' for players" },
+        "createdAt": { "type": "number", "description": "Account creation timestamp" },
+        "lastLogin": { "type": "number", "description": "Last login timestamp" }
+      }
+    },
+    "Character": {
+      "collection": "characters",
+      "fields": {
+        "name": { "type": "string", "description": "Character name" },
+        "playerName": { "type": "string", "description": "Player name" },
+        "userId": { "type": "string", "description": "Owner user UID" },
+        "userEmail": { "type": "string", "description": "Owner user email" },
+        "avatarUrl": { "type": "string", "description": "Avatar URL" },
+        "highConcept": { "type": "string", "description": "High concept aspect" },
+        "trouble": { "type": "string", "description": "Trouble aspect" },
+        "aspects": { "type": "array", "description": "Free and background aspects" },
+        "skills": { "type": "map", "description": "Skill name to rating map" },
+        "fatePoints": { "type": "number", "description": "Current Fate Points" },
+        "refresh": { "type": "number", "description": "Refresh rate" },
+        "physicalStress": { "type": "array", "description": "Physical stress box states" },
+        "mentalStress": { "type": "array", "description": "Mental stress box states" },
+        "consequences": { "type": "array", "description": "Mild, Moderate, Severe consequences" },
+        "stunts": { "type": "array", "description": "Character stunts" },
+        "updatedAt": { "type": "number", "description": "Last updated timestamp" }
+      }
+    },
+    "SpecialCard": {
+      "collection": "specialCards",
+      "fields": {
+        "name": { "type": "string", "description": "Card name" },
+        "rarity": { "type": "string", "description": "Rarity tier" },
+        "category": { "type": "string", "description": "Card category" },
+        "description": { "type": "string", "description": "Card rules description" },
+        "flavorText": { "type": "string", "description": "Narrative flavor text" },
+        "imageUrl": { "type": "string", "description": "Card artwork URL" },
+        "skillBonuses": { "type": "map", "description": "Bonuses added to skills" },
+        "stressBonuses": { "type": "map", "description": "Extra stress box bonuses" },
+        "fatePointBonus": { "type": "number", "description": "Extra Fate Point bonus" },
+        "assignedCharacterId": { "type": "string", "description": "ID of assigned character" },
+        "assignedCharacterName": { "type": "string", "description": "Name of assigned character" }
+      }
+    },
+    "NPC": {
+      "collection": "npcs",
+      "fields": {
+        "name": { "type": "string", "description": "NPC name" },
+        "category": { "type": "string", "description": "Boss, Minion, Elite, Ally" },
+        "location": { "type": "string", "description": "Current location name" },
+        "locationHistory": { "type": "array", "description": "Past encounter locations" },
+        "aspects": { "type": "array", "description": "NPC aspects" },
+        "skills": { "type": "map", "description": "NPC skills" },
+        "stunts": { "type": "array", "description": "NPC stunts" },
+        "stress": { "type": "array", "description": "Stress track" },
+        "gmNotes": { "type": "string", "description": "Secret GM tactics" },
+        "weaknesses": { "type": "string", "description": "Secret GM weaknesses" },
+        "isInEncounter": { "type": "boolean", "description": "Whether active in current scene" }
+      }
+    },
+    "GMNote": {
+      "collection": "gmNotes",
+      "fields": {
+        "title": { "type": "string", "description": "Secret note title" },
+        "category": { "type": "string", "description": "Category" },
+        "content": { "type": "string", "description": "Secret note text" },
+        "isPinned": { "type": "boolean", "description": "Pinned status" },
+        "tags": { "type": "array", "description": "Search tags" },
+        "updatedAt": { "type": "number", "description": "Updated timestamp" }
+      }
+    },
+    "Campaign": {
+      "collection": "campaigns",
+      "fields": {
+        "currentLocation": { "type": "string", "description": "Active scene location" },
+        "locationsList": { "type": "array", "description": "Available scene locations" },
+        "sceneAspects": { "type": "array", "description": "Active scene aspects with invokes" },
+        "updatedAt": { "type": "number", "description": "Timestamp" }
+      }
+    },
+    "DiceRoll": {
+      "collection": "diceRolls",
+      "fields": {
+        "rollerName": { "type": "string", "description": "Character or GM name" },
+        "userId": { "type": "string", "description": "Roller UID" },
+        "dice": { "type": "array", "description": "Four dice results [-1, 0, 1]" },
+        "skillName": { "type": "string", "description": "Rolled skill" },
+        "skillBonus": { "type": "number", "description": "Skill bonus" },
+        "cardBonus": { "type": "number", "description": "Card bonus" },
+        "modifier": { "type": "number", "description": "Situational modifier" },
+        "total": { "type": "number", "description": "Final roll total" },
+        "ladderResult": { "type": "map", "description": "Fate ladder step" },
+        "outcome": { "type": "string", "description": "Outcome type" },
+        "targetOpposition": { "type": "number", "description": "Opposition difficulty" },
+        "shifts": { "type": "number", "description": "Shifts generated" },
+        "timestamp": { "type": "number", "description": "Roll timestamp" }
+      }
+    }
+  }
+}
